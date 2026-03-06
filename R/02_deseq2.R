@@ -65,9 +65,10 @@ for (scenario in c("WW", "WD")) {
   dds <- DESeqDataSetFromTximport(txi, colData = samples_sub, design = ~ geno)
   dds$geno <- relevel(dds$geno, ref = "0_0_0_0")
 
-  # Pre-filter: keep genes with >=5 reads in >=3 samples
-  # (more stringent than PCA filter, appropriate for DEG analysis)
-  keep <- rowSums(counts(dds) >= 5) >= 3
+ # Pre-filter: keep genes with >=10 reads in >=4 samples
+ # (increased from default to avoid p-value distribution artefacts
+ # caused by low-count genes, as observed in preliminary analysis)
+  keep <- rowSums(counts(dds) >= 10) >= 4
   dds  <- dds[keep, ]
 
   # Run DESeq2
