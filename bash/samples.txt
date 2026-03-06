@@ -1,0 +1,4 @@
+# One sample name per line
+# Example:
+# sample_001
+# sample_002
